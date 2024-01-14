@@ -1,5 +1,6 @@
 package Model;
 
+//njdnkj
 class Supllier
 {
     private int supplier_id;
