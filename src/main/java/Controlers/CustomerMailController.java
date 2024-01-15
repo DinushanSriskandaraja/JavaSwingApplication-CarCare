@@ -1,13 +1,14 @@
-package Controlers;
+package Controllers;
 
 
 import Models.CustomerMailing;
 import ServiceLayer.CustomerService;
+import Utilities.MailUtil;
 
 import java.util.*;
 
 public class CustomerMailController {
-    CustomerMailing cusObj;
+    public CustomerMailing cusObj;
     CustomerService service;
     public CustomerMailController()
     {
@@ -26,6 +27,10 @@ public class CustomerMailController {
 
     public boolean validation(){
         return service.checkMail(cusObj);
+    }
+
+    public void setService(CustomerService service) {
+        this.service = service;
     }
 
 }

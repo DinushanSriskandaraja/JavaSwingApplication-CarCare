@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 public class CustomerService {
 
-    private final DatabaseConnection singleConn;
+    private DatabaseConnection singleConn;
     public CustomerService()
     {
         singleConn=new DatabaseConnection();
