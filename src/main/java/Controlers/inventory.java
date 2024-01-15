@@ -1,9 +1,6 @@
-package Controler;
+package Controlers;
 
-import Model.InventoryDbConnector;
-import View.Inventory;
-
-import javax.swing.*;
+import Models.InventoryDbConnector;
 
 public class inventory {
 

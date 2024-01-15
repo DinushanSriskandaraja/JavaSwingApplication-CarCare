@@ -1,8 +1,8 @@
-package Controler;
+package Controlers;
 
-import Model.DatabaseManager;
-import Model.Supllier;
-import View.SupplierManagementUI;
+import Models.DatabaseManager;
+import Models.Supllier;
+import Views.SupplierManagementUI;
 
 import java.util.List;
 

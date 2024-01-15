@@ -1,9 +1,7 @@
-package Model;
-import Controler.inventory;
-import View.Inventory;
+package Models;
+import Controlers.inventory;
+import Views.Inventory;
 
-import javax.swing.*;
-import java.awt.*;
 import java.sql.*;
 
 public class InventoryDbConnector {

@@ -1,4 +1,4 @@
-package Controllers;
+package Controlers;
 
 
 import Models.CustomerMailing;

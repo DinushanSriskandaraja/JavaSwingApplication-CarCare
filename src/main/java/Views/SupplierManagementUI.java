@@ -1,8 +1,8 @@
-package View;
+package Views;
 
-import Controler.SupplierController;
-import Model.DatabaseManager;
-import Model.Supllier;
+import Controlers.SupplierController;
+import Models.DatabaseManager;
+import Models.Supllier;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableModel;

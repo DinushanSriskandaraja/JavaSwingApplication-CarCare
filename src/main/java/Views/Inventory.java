@@ -1,6 +1,6 @@
-package View;
+package Views;
 
-import Controler.inventory;
+import Controlers.inventory;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
