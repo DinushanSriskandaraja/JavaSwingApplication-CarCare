@@ -67,11 +67,12 @@ public class MailUtil {
         try {
             message.setFrom(new InternetAddress(SENDER_EMAIL));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
-            message.setSubject("Hello " + name + " Your Repair/Restorations is completed");
-            message.setText("Notice regarding completion of repair/restoration\n\nWe have completed your Repair/Restorations Please visit us to get your vehicle...\n\nThank you for choosing CarCare,\nCar Care Group");
+            message.setSubject("Hello " + name + " Your repair/restorations is completed");
+            message.setText("Notice regarding completion of repair/restoration\n\nWe have completed your repair/restoration please visit us as soon as possible...\n\nCar Care");
             return message;
         } catch (AddressException ex) {
             Logger.getLogger(MailUtil.class.getName()).log(Level.SEVERE, null, ex);
+
         } catch (MessagingException ex) {
             Logger.getLogger(MailUtil.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -84,6 +85,7 @@ public class MailUtil {
             message.setFrom(new InternetAddress(SENDER_EMAIL));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recipient));
             message.setSubject("Hello " + name + " You are assigned for work ! ");
+            //" Youare allocated to "+role+" Work for the Customer "
             message.setText("Notice regarding allocation to "+role+" Work \nPlease visit the Service Center as soon as possible...\n\nCarCare Center");
             return message;
         } catch (AddressException ex) {
