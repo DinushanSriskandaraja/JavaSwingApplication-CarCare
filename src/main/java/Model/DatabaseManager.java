@@ -10,29 +10,39 @@ public class DatabaseManager {
 
     public DatabaseManager()
     {
-        String url="jdbc::mysql://localhost:3306/supplier?useUnicode=true&charcterEncoding=UTF-8";
-        String user="root";
-        String password="";
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
 
-        try{
-            connection = DriverManager.getConnection(url,user,password);
+            String url = "jdbc:mysql://localhost:3306/suppliers?useUnicode=true&characterEncoding=UTF-8";
+            String user = "root";
+            String password = "";
+
+
+            connection = DriverManager.getConnection(url, user, password);
         }
         catch(SQLException e)
         {
             e.printStackTrace();
         }
+
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
     }
 
-
+    // add supplier need pass the supplier
     public void addSupplier(Supllier supllier)
     {
-        String query="INSERT INTO supplier(name, Address, Email) values(?, ?, ?)";
+        String query="INSERT INTO suppliers(supplierName,address,email) values(?, ?, ?)";
         try(PreparedStatement preparedStatement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS))
         {
+            // return the values
             preparedStatement.setString(1, supllier.getSupplier_name());
             preparedStatement.setString(2, supllier.getSupplier_address());
             preparedStatement.setString(3, supllier.getSupplier_email());
 
+            // if the affected rows == 0 it will print a error
             int affectedRows = preparedStatement.executeUpdate();
 
             if(affectedRows == 0)
@@ -40,8 +50,10 @@ public class DatabaseManager {
                 throw new SQLException("Adding the supplier is failed, Please Check And Try Again");
             }
 
+            // to get suppIDs
             try(ResultSet generatedKeys = preparedStatement.getGeneratedKeys())
             {
+                // checking for rows in generated keys
                 if(generatedKeys.next())
                 {
                     supllier.setSupplier_id(generatedKeys.getInt(1));
@@ -63,7 +75,7 @@ public class DatabaseManager {
     {
         List<Supllier> suppliers=new ArrayList<>();
 
-        String query="Select * from supllier";
+        String query="Select * from suppliers";
 
         try(Statement statement = connection.createStatement();
 
@@ -72,10 +84,10 @@ public class DatabaseManager {
             while (resultSet.next())
             {
                 Supllier supllier=new Supllier();
-                supllier.setSupplier_id(resultSet.getInt("id"));
-                supllier.setSupplier_name(resultSet.getString("name"));
-                supllier.setSupplier_address(resultSet.getString("Address"));
-                supllier.setSupplier_email(resultSet.getString("Email"));
+                supllier.setSupplier_id(resultSet.getInt("supplierID"));
+                supllier.setSupplier_name(resultSet.getString("supplierName"));
+                supllier.setSupplier_address(resultSet.getString("address"));
+                supllier.setSupplier_email(resultSet.getString("email"));
                 suppliers.add(supllier);
             }
         }
@@ -86,6 +98,40 @@ public class DatabaseManager {
 
 
         return suppliers;
+
+
+    }
+
+
+    public void updateSupplier(Supllier supllier)
+    {
+        String query="UPDATE suppliers SET supplierName= ?, address = ?, email= ? WHERE supplierID=?";
+        try(PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setString(1, supllier.getSupplier_name());
+            preparedStatement.setString(2, supllier.getSupplier_address());
+            preparedStatement.setString(3, supllier.getSupplier_email());
+            preparedStatement.setInt(4, supllier.getSupplier_id());
+            preparedStatement.executeUpdate();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    public void removeSupplier(int supplierId)
+    {
+        String query="DELETE FROM suppliers WHERE supplierID= ?";
+        try(PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            preparedStatement.setInt(1, supplierId);
+            preparedStatement.executeUpdate();
+        }
+        catch(SQLException e)
+        {
+            e.printStackTrace();
+        }
+
 
 
     }

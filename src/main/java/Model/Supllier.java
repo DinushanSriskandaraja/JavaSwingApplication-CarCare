@@ -1,7 +1,6 @@
 package Model;
 
-//njdnkj
-class Supllier
+public class Supllier
 {
     private int supplier_id;
     private String supplier_name;
