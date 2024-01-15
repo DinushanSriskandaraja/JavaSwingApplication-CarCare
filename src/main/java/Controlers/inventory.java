@@ -2,13 +2,25 @@ package Controlers;
 
 import Models.InventoryDbConnector;
 
-public class inventory {
 
+public class inventory  {
+    public static int getId() {
+        return id;
+    }
+
+    public static void setId(int id) {
+        inventory.id = id;
+    }
+
+    private static int id;
     private static String name;
     private static String description;
     private static int quantity;
     private static float price;
     private static String supplier;
+
+    public inventory(String id, String name, String description, int quantity, float price, String supplier) {
+    }
 
     public static String getName() {
         return name;
@@ -49,9 +61,11 @@ public class inventory {
     public static void setSupplier(String supplier) {
         inventory.supplier = supplier;
     }
-    public static void addInventory(){
-        InventoryDbConnector.addInventory();
-//        System.out.println("Order details added to the database.");
-//        JOptionPane.showMessageDialog(null, "Order details added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+    public static void addInventory(String id,String name, String description, int quantity, float price, String supplier) {
+        // Create an Inventory object with the provided data
+        inventory inventory = new inventory(id,name, description, quantity, price, supplier);
+
+        // Call the method in InventoryDbConnector to add the inventory to the database
+        InventoryDbConnector.addInventory(inventory);
     }
 }
