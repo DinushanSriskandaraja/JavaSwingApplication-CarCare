@@ -1,6 +1,6 @@
 package Views;
 
-import Controllers.EmployeeMailController;
+import Controlers.EmployeeMailController;
 import Models.EmployeeMailing;
 import Utilities.MailUtil;
 
