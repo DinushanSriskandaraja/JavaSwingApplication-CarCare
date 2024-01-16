@@ -13,7 +13,7 @@ public class EmployeeMailTest {
     static EmployeeMailController controllerObj;
     static EmployeeService serviceObj;
     String Mail;
-    String Name ;]
+    String Name ;
     boolean status;
 
     @BeforeAll
