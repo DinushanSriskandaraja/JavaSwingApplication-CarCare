@@ -9,7 +9,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class Inventory extends JFrame {
-    private JTextField id;
 
     private JTextField name;
     private JTextField description;
@@ -30,7 +29,6 @@ public class Inventory extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 // Assuming you have an InventoryController class
                 inventory.addInventory(
-                        id.getText(),
                         name.getText(),
                         description.getText(),
                         Integer.parseInt(quantity.getText()),

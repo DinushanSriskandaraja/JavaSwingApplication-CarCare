@@ -40,7 +40,7 @@ public class InventoryDbConnector {
                 if (generatedKeys.next()) {
                     int generatedId = generatedKeys.getInt(1);
                     System.out.println("Inventory details added to the database with ID: " + generatedId);
-                    // You can use the generatedId as needed
+                    inventory.setId(generatedId); // Set the auto-incremented ID in the inventory object
                 }
 
                 Inventory.showMessage("Product Added Successfully", "Success");
@@ -52,6 +52,7 @@ public class InventoryDbConnector {
             e.printStackTrace();
         }
     }
+
 
     public static void updateInventory(int id, inventory updatedInventory) {
         String sql = "UPDATE inventory SET name=?, description=?, quantity=?, price=?, supplier=? WHERE id=?";
@@ -105,14 +106,14 @@ public class InventoryDbConnector {
              ResultSet resultSet = statement.executeQuery(sql)) {
 
             while (resultSet.next()) {
-                int id = resultSet.getInt("id");
+//                int id = resultSet.getInt("id");
                 String name = resultSet.getString("name");
                 String description = resultSet.getString("description");
                 int quantity = resultSet.getInt("quantity");
                 float price = resultSet.getFloat("price");
                 String supplier = resultSet.getString("supplier");
 
-                inventory inventory = new inventory(id, name, description, quantity, price, supplier);
+                inventory inventory = new inventory(name, description, quantity, price, supplier);
                 inventoryList.add(inventory);
             }
 

@@ -19,7 +19,7 @@ public class inventory  {
     private static float price;
     private static String supplier;
 
-    public inventory(String id, String name, String description, int quantity, float price, String supplier) {
+    public inventory(String id, String name, int quantity, float price, String supplier) {
     }
 
     public static String getName() {
@@ -61,9 +61,9 @@ public class inventory  {
     public static void setSupplier(String supplier) {
         inventory.supplier = supplier;
     }
-    public static void addInventory(String id,String name, String description, int quantity, float price, String supplier) {
+    public static void addInventory(String id, String name, int quantity, float price, String supplier) {
         // Create an Inventory object with the provided data
-        inventory inventory = new inventory(id,name, description, quantity, price, supplier);
+        inventory inventory = new inventory(id,name, quantity, price, supplier);
 
         // Call the method in InventoryDbConnector to add the inventory to the database
         InventoryDbConnector.addInventory(inventory);
