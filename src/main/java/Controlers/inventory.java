@@ -2,13 +2,27 @@ package Controlers;
 
 import Models.InventoryDbConnector;
 
-public class inventory {
+import java.util.List;
 
+
+public class inventory  {
+    public static int getId() {
+        return id;
+    }
+
+    public static void setId(int id) {
+        inventory.id = id;
+    }
+
+    private static int id;
     private static String name;
     private static String description;
     private static int quantity;
     private static float price;
     private static String supplier;
+
+    public inventory(String id, String name, int quantity, float price, String supplier) {
+    }
 
     public static String getName() {
         return name;
@@ -49,9 +63,32 @@ public class inventory {
     public static void setSupplier(String supplier) {
         inventory.supplier = supplier;
     }
-    public static void addInventory(){
-        InventoryDbConnector.addInventory();
-//        System.out.println("Order details added to the database.");
-//        JOptionPane.showMessageDialog(null, "Order details added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+    public static void addInventory(String id, String name, int quantity, float price, String supplier) {
+        // Create an Inventory object with the provided data
+        inventory inventory = new inventory(id,name, quantity, price, supplier);
+
+        // Call the method in InventoryDbConnector to add the inventory to the database
+        InventoryDbConnector.addInventory(inventory);
+    }
+
+    public static inventory getInventoryById(int selectedId) {
+        // Call the method in InventoryDbConnector to fetch the inventory by ID
+        return InventoryDbConnector.getInventoryById(selectedId);
+    }
+
+
+    // Method to update inventory
+    public void updateInventory() {
+        InventoryDbConnector.updateInventory(this.id, this);
+    }
+
+    // Method to delete inventory
+    public void deleteInventory() {
+        InventoryDbConnector.deleteInventory(this.id);
+    }
+
+    // Static method to get all inventory items
+    public static List<inventory> getAllInventory() {
+        return InventoryDbConnector.getAllInventory();
     }
 }
