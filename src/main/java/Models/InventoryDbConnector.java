@@ -7,6 +7,8 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+//import static Controlers.inventory.id;
+
 public class InventoryDbConnector {
     private static Connection connection;
 
@@ -43,10 +45,10 @@ public class InventoryDbConnector {
                     inventory.setId(generatedId); // Set the auto-incremented ID in the inventory object
                 }
 
-                Inventory.showMessage("Product Added Successfully", "Success");
+//                Inventory.showMessage("Product Added Successfully", "Success");
             } else {
                 System.out.println("Failed to add inventory details.");
-                Inventory.showMessage("Product Addition Failed", "Error");
+//                Inventory.showMessage("Product Addition Failed", "Error");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -69,10 +71,10 @@ public class InventoryDbConnector {
             // Check if the update was successful
             if (rowsAffected > 0) {
                 System.out.println("Inventory details updated in the database.");
-                Inventory.showMessage("Inventory Updated Successfully", "Success");
+//                Inventory.showMessage("Inventory Updated Successfully", "Success");
             } else {
                 System.out.println("Failed to update inventory details.");
-                Inventory.showMessage("Inventory Update Failed", "Error");
+//                Inventory.showMessage("Inventory Update Failed", "Error");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -89,10 +91,10 @@ public class InventoryDbConnector {
             // Check if the delete was successful
             if (rowsAffected > 0) {
                 System.out.println("Inventory deleted from the database.");
-                Inventory.showMessage("Inventory Deleted Successfully", "Success");
+//                Inventory.showMessage("Inventory Deleted Successfully", "Success");
             } else {
                 System.out.println("Failed to delete inventory.");
-                Inventory.showMessage("Inventory Deletion Failed", "Error");
+//                Inventory.showMessage("Inventory Deletion Failed", "Error");
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -122,5 +124,32 @@ public class InventoryDbConnector {
         }
 
         return inventoryList;
+    }
+
+
+    public static inventory getInventoryById(int selectedId) {
+        inventory result = null;
+        String sql = "SELECT * FROM inventory WHERE id=?";
+
+        try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
+            preparedStatement.setInt(1, selectedId);
+
+            try (ResultSet resultSet = preparedStatement.executeQuery()) {
+                if (resultSet.next()) {
+                    String name = resultSet.getString("name");
+                    String description = resultSet.getString("description");
+                    int quantity = resultSet.getInt("quantity");
+                    float price = resultSet.getFloat("price");
+                    String supplier = resultSet.getString("supplier");
+
+                    result = new inventory( name, description, quantity, price, supplier);
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return result;
+    }
     }
 }

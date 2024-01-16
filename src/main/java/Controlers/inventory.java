@@ -2,6 +2,8 @@ package Controlers;
 
 import Models.InventoryDbConnector;
 
+import java.util.List;
+
 
 public class inventory  {
     public static int getId() {
@@ -67,5 +69,26 @@ public class inventory  {
 
         // Call the method in InventoryDbConnector to add the inventory to the database
         InventoryDbConnector.addInventory(inventory);
+    }
+
+    public static inventory getInventoryById(int selectedId) {
+        // Call the method in InventoryDbConnector to fetch the inventory by ID
+        return InventoryDbConnector.getInventoryById(selectedId);
+    }
+
+
+    // Method to update inventory
+    public void updateInventory() {
+        InventoryDbConnector.updateInventory(this.id, this);
+    }
+
+    // Method to delete inventory
+    public void deleteInventory() {
+        InventoryDbConnector.deleteInventory(this.id);
+    }
+
+    // Static method to get all inventory items
+    public static List<inventory> getAllInventory() {
+        return InventoryDbConnector.getAllInventory();
     }
 }

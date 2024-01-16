@@ -33,7 +33,7 @@ public class Inventory extends JFrame {
                         description.getText(),
                         Integer.parseInt(quantity.getText()),
                         Float.parseFloat(unitprice.getText()),
-                (String) supplier.getSelectedItem()
+                        (String) supplier.getSelectedItem()
                 );
 
                 // Update the table if needed
@@ -44,7 +44,16 @@ public class Inventory extends JFrame {
         deleteButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                // Add your delete logic here
+                // Implement your delete logic here
+                int selectedRow = inventoryTable.getSelectedRow();
+                if (selectedRow != -1) {
+                    int selectedId = (int) tableModel.getValueAt(selectedRow, 0);
+                    // Call the delete method from your controller
+                    // inventory.deleteInventory(selectedId);
+                    refreshTable();
+                } else {
+//                    showMessage("Please select an inventory item to delete.", "Error");
+                }
             }
         });
 
@@ -62,11 +71,19 @@ public class Inventory extends JFrame {
         setVisible(true);
     }
 
+        private void refreshTable() {
+        // Clear the table
+        tableModel.setRowCount(0);
 
+        // Retrieve the updated inventory list from the database
+        java.util.List<inventory> inventoryList = inventory.getAllInventory();
 
-    public static void showMessage(String message, String title) {
-        JOptionPane.showMessageDialog(null, message, title, JOptionPane.INFORMATION_MESSAGE);
+        // Populate the table with the updated data
+        for (inventory item : inventoryList) {
+            tableModel.addRow(new Object[]{item.getId(), item.getName(), item.getDescription(), item.getQuantity(), item.getPrice(), item.getSupplier()});
+        }
     }
+
 
     private void initComponents() {
         // Initialize components
@@ -111,13 +128,9 @@ public class Inventory extends JFrame {
         inventoryTable.setModel(tableModel);
 
         add(mainPanel);
-
-        // Add the rest of your component initialization code here
     }
 
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> new Inventory());
     }
-
-
 }
